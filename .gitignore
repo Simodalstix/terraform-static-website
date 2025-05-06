@@ -1,0 +1,25 @@
+# Local .terraform directories
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Backup files
+*.backup
+
+# Sensitive tfvars files (if you're not committing them)
+*.tfvars
+
+# Override files that may contain secrets
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# .terraform.lock.hcl can be kept or ignored depending on your workflow
+# Uncomment below to ignore it (optional)
+.terraform.lock.hcl
