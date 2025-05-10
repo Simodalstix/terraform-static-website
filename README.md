@@ -1,90 +1,85 @@
-Terraform Static Website
-This project provisions a static website on AWS using Terraform, applying Infrastructure as Code (IaC) principles to deploy and configure an S3 bucket for public website hosting. It also outputs the website's URL for easy access.
+# Terraform Static Website
 
-Purpose
-This repository demonstrates how to declaratively manage cloud resources using Terraform. It provides a lightweight, cost-effective solution for hosting static web content without relying on traditional servers or complex deployments.
+I created this project to provision a static website on AWS using Terraform. It applies Infrastructure as Code (IaC) principles to deploy and configure an S3 bucket for public website hosting. The setup outputs the website's URL upon completion for easy access.
 
-Why It's Useful
-Infrastructure as Code: The entire infrastructure is defined and version-controlled in code.
+## Purpose
 
-Repeatability: Environments can be recreated consistently across teams or stages.
+This repository demonstrates how to declaratively manage cloud resources using Terraform. It offers a simple and cost-effective solution for hosting static web content without the need for traditional servers or complex deployments.
 
-Automation Friendly: Easily integrates with CI/CD pipelines.
+## Why It's Useful
 
-Scalable and Cost-Efficient: Uses S3 for serverless, highly available static site hosting.
+- **Infrastructure as Code**: I defined and version-controlled the entire infrastructure in code.
+- **Repeatability**: I can recreate environments consistently across teams or stages.
+- **Automation Friendly**: The setup integrates easily with CI/CD pipelines.
+- **Scalable and Cost-Efficient**: It uses Amazon S3 for serverless, highly available static site hosting.
+- **Modular Design**: I followed clean Terraform practices by separating concerns into `main.tf`, `variables.tf`, and `outputs.tf`.
 
-Modular Design: Follows clean Terraform practices with separate main.tf, variables.tf, and outputs.tf.
+## DevOps Alignment
 
-DevOps Alignment
-This project reflects key DevOps values:
+This project aligns with key DevOps principles:
 
-Automation: Infrastructure is provisioned automatically and reliably.
+- **Automation**: I provision infrastructure automatically and reliably using Terraform.
+- **Version Control**: All infrastructure changes are tracked in Git.
+- **Speed and Simplicity**: The configuration supports fast, cost-efficient deployments.
+- **Extendable Workflows**: The structure encourages scripting and future CI/CD integrations.
 
-Version Control: All changes to infrastructure are tracked through Git.
+## Required: Upload `index.html`
 
-Simplicity and Speed: Easily extendable and adaptable for frontend or documentation hosting.
+Terraform provisions the infrastructure, but I must upload the static HTML content (such as `index.html` and optionally `error.html`) to the S3 bucket manually or programmatically.
 
-Post-deploy Actions: Encourages scripting and automation for content delivery (e.g., uploading files to S3).
+### Example:
 
-Required: Upload index.html
-Terraform provisions the infrastructure, but you must manually or programmatically upload your index.html (and optionally error.html) to the S3 bucket to make the website functional.
-
-Example:
-bash
-Copy
-Edit
-aws s3 cp index.html s3://your-bucket-name/
-You can find the bucket name and website endpoint in the Terraform output.
-
-Getting Started
-Clone the repository:
-
-bash
-Copy
-Edit
-git clone https://github.com/Simodalstix/terraform-static-website.git
-cd terraform-static-website
-Initialize Terraform:
-
-bash
-Copy
-Edit
-terraform init
-Review the plan:
-
-bash
-Copy
-Edit
-terraform plan
-Apply the configuration:
-
-bash
-Copy
-Edit
-terraform apply
-Upload index.html to the provisioned S3 bucket:
-
-bash
-Copy
-Edit
+```bash
 aws s3 cp index.html s3://$(terraform output -raw bucket_name)/
-Open the website using the URL provided in the Terraform output.
+```
 
-Requirements
-Terraform CLI
+## Getting Started
 
-AWS CLI with credentials configured
+1. **Clone the repository:**
 
-An AWS account with S3 permissions
+   ```bash
+   git clone https://github.com/Simodalstix/terraform-static-website.git
+   cd terraform-static-website
+   ```
 
-Future Enhancements
-Automate index.html upload via a null_resource or deployment script
+2. **Initialize Terraform:**
 
-Add CloudFront distribution and HTTPS via ACM
+   ```bash
+   terraform init
+   ```
 
-Route custom domain traffic with Route 53
+3. **Review and apply the configuration:**
 
-Integrate with CI/CD for automatic deployment of frontend content
+   ```bash
+   terraform plan
+   terraform apply
+   ```
 
-License
-This project is open-source and available under the MIT License.
+4. **Upload your HTML file:**
+
+   ```bash
+   aws s3 cp index.html s3://$(terraform output -raw bucket_name)/
+   ```
+
+5. **Access the website** using the URL provided in the Terraform output.
+
+## Requirements
+
+- Terraform CLI
+- AWS CLI with credentials configured
+- An AWS account with permission to manage S3 resources
+
+## Optional: Automate with GitHub Actions
+
+I can optionally add a GitHub Actions workflow to automatically deploy infrastructure and upload HTML content whenever I push to the `main` branch.
+
+## Future Enhancements
+
+- Automate HTML upload via CI/CD
+- Add CloudFront and ACM for HTTPS support
+- Add custom domain support via Route 53
+- Include a full GitHub Actions workflow for end-to-end deployment
+
+## License
+
+MIT
